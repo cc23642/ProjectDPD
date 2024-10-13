@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:sisi_proj_monitores_dpd/Components/Table_component.dart';
+
 class MonitorPage extends StatefulWidget {
   const MonitorPage({super.key, required this.monitorName});
 
@@ -13,7 +15,7 @@ class MonitorPage extends StatefulWidget {
 
 class _MonitorPageState extends State<MonitorPage> {
   String data = '';
-  Map<String, dynamic> monitor = {}; // Inicializa como um mapa vazio
+  Map<String, dynamic> monitor = {};
 
   @override
   void initState() {
@@ -28,7 +30,7 @@ class _MonitorPageState extends State<MonitorPage> {
     if (response.statusCode == 200) {
       setState(() {
         data = response.body;
-        monitor = jsonDecode(data); // Decodifica o JSON aqui
+        monitor = jsonDecode(data);
       });
     } else {
       setState(() {
@@ -44,45 +46,7 @@ class _MonitorPageState extends State<MonitorPage> {
       body: Center(
         child: data.isEmpty
             ? CircularProgressIndicator() 
-            : Table(
-                border: TableBorder.all(),
-                columnWidths: {
-                  0: FlexColumnWidth(1),
-                  1: FlexColumnWidth(2), 
-                },
-                children: [
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Curso'), // Cabeçalho para o curso
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('Horários'), // Cabeçalho para os horários
-                      ),
-                    ]
-                  ),
-                  // Adiciona a linha com o curso e a lista de horários
-                  TableRow(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(monitor['curso'] ?? ''), // Exibe o curso
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: (monitor['horarios'] as List<dynamic>? ?? []).map((horario) {
-                            return Text(horario.toString()); // Exibe cada horário
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ]
-              ),
+            : TableComponent(monitor: monitor,),
       ),
     );
   }
