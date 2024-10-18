@@ -35,7 +35,7 @@ class CardComponent extends StatelessWidget {
           width: 200,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(100.0))
+            borderRadius: BorderRadius.all(Radius.circular(10.0))
           ),
           child: Column(
             children: [
