@@ -33,6 +33,10 @@ class CardComponent extends StatelessWidget {
         child: Container(
           height: 300,
           width: 200,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(100.0))
+          ),
           child: Column(
             children: [
               Image.asset(img),
